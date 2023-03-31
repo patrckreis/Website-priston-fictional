@@ -1,0 +1,22 @@
+.itemImg {
+  animation-name: aging;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.8s;
+  animation-direction: alternate;
+  position: absolute;
+}
+
+@keyframes aging {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.specItems {
+  display: flex;
+  flex-direction: column;
+}

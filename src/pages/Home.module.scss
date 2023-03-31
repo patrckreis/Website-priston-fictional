@@ -1,0 +1,16 @@
+.pageWrapper {
+  position: relative;
+  min-height: 100vh;
+  background-color: rgba(248, 247, 248, 0.308);
+}
+
+.backgroundImg {
+  background-image: url("../components/header/assets/priston.jpg");
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}

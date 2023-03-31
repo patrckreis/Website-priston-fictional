@@ -1,0 +1,42 @@
+.groupItemContainer {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  padding: 0 200px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.groupItem {
+  display: flex;
+
+  & span {
+    cursor: pointer;
+  }
+}
+
+.groupItemListContainer {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 50px;
+  height: 358px;
+  flex-wrap: wrap;
+
+  & span {
+    cursor: pointer;
+  }
+}
+
+.teste {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  display: flex;
+}
+
+span {
+  width: fit-content;
+}
