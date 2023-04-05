@@ -15,10 +15,10 @@ export function Home() {
   return (
     <BrowserRouter>
       <Header />
-      <ListItems item={item} setItem={setItem} />
+      {/* <ListItems item={item} setItem={setItem} /> */}
       <Routes>
         <Route path="/inicio" element={<Homecontent />} />
-        {/* <Route path="/guias" element={<Guide />} /> */}
+        <Route path="/guias" element={<Guide />} />
         <Route path="/loja" element={<Loja />} />
       </Routes>
       <Background />

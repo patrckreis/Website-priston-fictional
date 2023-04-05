@@ -40,6 +40,7 @@ export function Age({ item, setItem }: any) {
     setSucess(false);
     setFailed(false);
     setMax(false);
+    setBack(false);
 
     const prob = Math.round(Math.random() * 100);
     if (item.age == 20) {
@@ -84,9 +85,19 @@ export function Age({ item, setItem }: any) {
 
   function removeAge(item: Item) {
     setBack(false);
+    setSucess(false);
+    setFailed(false);
+    setMax(false);
+    const probReturn = Math.round(Math.random() * 100);
     if (item.age > 1) {
-      setItem({ ...item, age: item?.age ? item.age - 1 : 1 });
-      setBack(true);
+      if (probReturn > 10) {
+        setItem({ ...item, age: item?.age ? item.age - 1 : 1 });
+        setBack(true);
+      }
+      if (probReturn > 50) {
+        setItem({ ...item, age: item?.age ? item.age - 2 : 1 });
+        setBack(true);
+      }
     }
   }
 

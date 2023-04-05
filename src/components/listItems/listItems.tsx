@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { listItems } from "../items/items";
 import { Age } from "../age/age";
 import style from "../listItems/listItems.module.scss";
+import { context } from "../../pages/guias/guias";
 
-export function ListItems({ item, setItem }: any) {
+export function ListItems({}: any) {
   const [open, setOpen] = useState("");
   const [groupItem, setGroupItem] = useState<any>();
+  const { item, setItem, inventory, setInventory } = useContext(context);
+  console.log(inventory);
+
   useEffect(() => {
     console.log(groupItem);
   }, [groupItem]);
@@ -26,13 +30,20 @@ export function ListItems({ item, setItem }: any) {
       <div>
         <div className={style.teste}>
           <div className={style.groupItemListContainer}>
+            <button
+              onClick={() => {
+                setInventory && setInventory([...inventory, item]);
+              }}
+            >
+              Clique aqui
+            </button>
             {groupItem?.items?.map((listItem: any) => {
               return (
                 <span
                   className={style.groupItemList}
                   onClick={() => {
                     console.log("teste");
-                    listItem !== item && setItem(listItem);
+                    listItem !== item && setItem && setItem(listItem);
                   }}
                 >
                   {listItem?.nome}
