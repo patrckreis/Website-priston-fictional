@@ -1,2 +1,3 @@
 # Website-priston-fictional
-Esté é um projeto para estudo e testes, utilizando SASS e React, simulando uma página web de um servidor do jogo Priston Tale 
+
+Este é um projeto para estudo e testes, utilizando SCSS e React, simulando uma página Web de um servidor do jogo Priston Tale. *(Projeto em andamento)*
