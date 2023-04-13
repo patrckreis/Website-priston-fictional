@@ -104,7 +104,7 @@ export function Age({ item, setItem }: any) {
   return (
     <>
       <div className={style.specItems}>
-        <h1>Clique em um item para ver seus Status</h1>
+        {/* <h1>Clique em um item para ver seus Status</h1> */}
         <span>{item?.nome}</span>
 
         {item?.poderDeAtaque && (
