@@ -11,32 +11,61 @@
 
 .groupItem {
   display: flex;
-
+  /* background-color: #1f75ff; */
+  padding: 3px 10px;
+  color: #1f75ff;
+  border-radius: 2px;
+  border: 1px solid #1f75ff;
   & span {
     cursor: pointer;
   }
+}
+
+.groupItem:target {
+  color: red;
 }
 
 .groupItemListContainer {
-  width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   column-gap: 50px;
-  height: 358px;
   flex-wrap: wrap;
-
-  & span {
-    cursor: pointer;
-  }
+  gap: 5px;
 }
 
-.teste {
-  position: absolute;
+.listItemsContainer {
+  /* position: absolute; */
   top: 80px;
   left: 0;
   display: flex;
+  box-sizing: border-box;
+  gap: 50px;
+  width: 1000px;
+  padding: 50px;
 }
 
 span {
   width: fit-content;
+}
+
+.inventoryIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.inventoryBtnIcon {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.groupItemList {
+  cursor: pointer;
+  display: flex;
+  padding: 5px;
 }

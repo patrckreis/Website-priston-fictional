@@ -7,6 +7,14 @@
   position: absolute;
 }
 
+.itemContainer {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
 @keyframes aging {
   0% {
     opacity: 0;

@@ -1,0 +1,19 @@
+.registerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputEmail {
+  font-size: 25px;
+}
+
+.inputPassword {
+  font-size: 25px;
+}
+
+.inputName {
+  font-size: 25px;
+}

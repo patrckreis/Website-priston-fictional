@@ -9,6 +9,7 @@ import { Age } from "../components/age/age";
 import { Enchant } from "../components/enchant/enchant";
 import { ListItems } from "../components/listItems/listItems";
 import { useState } from "react";
+import { Account } from "./account/Account";
 
 export function Home() {
   const [item, setItem] = useState();
@@ -20,6 +21,7 @@ export function Home() {
         <Route path="/inicio" element={<Homecontent />} />
         <Route path="/guias" element={<Guide />} />
         <Route path="/loja" element={<Loja />} />
+        <Route path="/conta" element={<Account />} />
       </Routes>
       <Background />
     </BrowserRouter>

@@ -162,9 +162,28 @@ export function Age({ item, setItem }: any) {
         )}
 
         {item?.age && <span>Aging: +{item?.age}</span>}
+        {item && (
+          <div className={style.itemContainer}>
+            <img
+              className={style.itemImg}
+              style={{
+                filter: COLORS[item?.age],
+              }}
+              src={item && require(`../../assets/items/${item?.nome}_.png`)}
+              alt=""
+            />
+            <img
+              style={{}}
+              src={item && require(`../../assets/items/${item?.nome}_.png`)}
+              alt=""
+            />
+          </div>
+        )}
 
-        <button onClick={() => removeAge(item)}>Retroceder aging</button>
-        <button onClick={() => aging(item)}>Aging</button>
+        {item && (
+          <button onClick={() => removeAge(item)}>Retroceder aging</button>
+        )}
+        {item && <button onClick={() => aging(item)}>Aging</button>}
 
         <span>
           {failed && "O Aging falhou!"}
@@ -172,21 +191,6 @@ export function Age({ item, setItem }: any) {
           {max && "Limite de Aging atingido."}
           {back && "Você retrocedeu o Aging"}
         </span>
-      </div>
-      <div className={style.ageContainer}>
-        <img
-          className={style.itemImg}
-          style={{
-            filter: COLORS[item?.age],
-          }}
-          src={item && require(`../../assets/items/${item?.nome}_.png`)}
-          alt=""
-        />
-        <img
-          style={{}}
-          src={item && require(`../../assets/items/${item?.nome}_.png`)}
-          alt=""
-        />
       </div>
     </>
   );
