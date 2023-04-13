@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/website-priston-fictional/static/css/main.652d4144.css",
-    "main.js": "/website-priston-fictional/static/js/main.fc584b2f.js",
+    "main.css": "/website-priston-fictional/static/css/main.0462eb1c.css",
+    "main.js": "/website-priston-fictional/static/js/main.9c817778.js",
     "static/media/priston.jpg": "/website-priston-fictional/static/media/priston.974217634d7ce995f49e.jpg",
+    "static/media/chest.png": "/website-priston-fictional/static/media/chest.fe75e42aa17adc6520c1.png",
     "static/media/Punhos Arina_.png": "/website-priston-fictional/static/media/Punhos Arina_.572d267b140af32da596.png",
     "static/media/Roupão Mortal_.png": "/website-priston-fictional/static/media/Roupão Mortal_.b6226b9fc86a864dfde4.png",
     "static/media/Armadura Mortal_.png": "/website-priston-fictional/static/media/Armadura Mortal_.74999281cd86805e1b1b.png",
@@ -34,11 +35,11 @@
     "static/media/Armadura de Platina_.png": "/website-priston-fictional/static/media/Armadura de Platina_.f8c01c15b3ec7d407522.png",
     "static/media/Roupão Santo_.png": "/website-priston-fictional/static/media/Roupão Santo_.5b0a788b580bd5d11774.png",
     "index.html": "/website-priston-fictional/index.html",
-    "main.652d4144.css.map": "/website-priston-fictional/static/css/main.652d4144.css.map",
-    "main.fc584b2f.js.map": "/website-priston-fictional/static/js/main.fc584b2f.js.map"
+    "main.0462eb1c.css.map": "/website-priston-fictional/static/css/main.0462eb1c.css.map",
+    "main.9c817778.js.map": "/website-priston-fictional/static/js/main.9c817778.js.map"
   },
   "entrypoints": [
-    "static/css/main.652d4144.css",
-    "static/js/main.fc584b2f.js"
+    "static/css/main.0462eb1c.css",
+    "static/js/main.9c817778.js"
   ]
 }
