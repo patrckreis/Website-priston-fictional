@@ -8,9 +8,8 @@ import inventoryIcon from "../header/assets/chest.png";
 export function ListItems({}: any) {
   const [open, setOpen] = useState("");
   const [groupItem, setGroupItem] = useState<any>();
-  const { item, setItem, inventory, setInventory } = useContext(context);
-
-  console.log(inventory);
+  const { selectedItem, setSelectedItem, inventory, setInventory } =
+    useContext(context);
 
   useEffect(() => {
     console.log(groupItem);
@@ -45,20 +44,19 @@ export function ListItems({}: any) {
               return (
                 <span
                   style={{
-                    color: listItem === item ? "white" : "#1f75ff",
-                    backgroundColor: listItem === item ? "#1f75ff" : "",
+                    color: listItem === selectedItem ? "white" : "#1f75ff",
+                    backgroundColor: listItem === selectedItem ? "#1f75ff" : "",
                   }}
                   className={style.groupItemList}
-                  onClick={() => {
-                    console.log("teste");
-                    listItem !== item && setItem && setItem(listItem);
-                  }}
                 >
                   {listItem?.nome}
                   <button
                     className={style.inventoryBtnIcon}
                     onClick={() => {
-                      setInventory && setInventory([...inventory, item]);
+                      const id = inventory[inventory.length - 1]?.id + 1 || 1;
+                      console.log(id);
+                      setInventory &&
+                        setInventory([...inventory, { ...listItem, id: id }]);
                     }}
                   >
                     <img
@@ -71,7 +69,7 @@ export function ListItems({}: any) {
               );
             })}
           </div>
-          <Age item={item} setItem={setItem} />
+          <Age />
         </div>
       </div>
     </div>

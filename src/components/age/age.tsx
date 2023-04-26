@@ -1,12 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import style from "../age/age.module.scss";
+import { context } from "../../pages/guias/guias";
+import { Shelton } from "./shelton/shelton";
 
 interface Item {
   nome: string;
   age: number;
+  id: number;
 }
 
-export function Age({ item, setItem }: any) {
+export function Age() {
+  const [dragItemOnAge, setDragItemOnAge] = useState(false);
+  const {
+    selectedItem,
+    setSelectedItem,
+    itemDrag,
+    setItemDrag,
+    setInventory,
+    sheltonsOnAge,
+    setSheltonsOnAge,
+  } = useContext(context);
   const [sucess, setSucess] = useState(false);
   const [failed, setFailed] = useState(false);
   const [max, setMax] = useState(false);
@@ -35,155 +48,256 @@ export function Age({ item, setItem }: any) {
     "brightness(0) saturate(100%) invert(98%) sepia(33%) saturate(4%) hue-rotate(67deg) brightness(110%) contrast(100%)",
   ];
 
-  function aging(item: Item) {
+  const COMBINATIONS = [
+    ["Fadeo", "Fadeo", "Sparki", "Sparki", "Raident"],
+    ["Fadeo", "Fadeo", "Sparki", "Sparki", "Raident", "Raident"],
+    ["Fadeo", "Fadeo", "Sparki", "Sparki", "Raident", "Raident", "Transparo"],
+    [
+      "Fadeo",
+      "Fadeo",
+      "Sparki",
+      "Sparki",
+      "Raident",
+      "Raident",
+      "Transparo",
+      "Transparo",
+    ],
+    [
+      "Fadeo",
+      "Fadeo",
+      "Sparki",
+      "Sparki",
+      "Raident",
+      "Raident",
+      "Transparo",
+      "Transparo",
+      "Murki",
+    ],
+    [
+      "Fadeo",
+      "Fadeo",
+      "Sparki",
+      "Sparki",
+      "Raident",
+      "Raident",
+      "Transparo",
+      "Transparo",
+      "Murki",
+      "Murki",
+    ],
+    [
+      "Fadeo",
+      "Fadeo",
+      "Sparki",
+      "Sparki",
+      "Raident",
+      "Raident",
+      "Transparo",
+      "Transparo",
+      "Murki",
+      "Murki",
+      "Devine",
+    ],
+  ];
+
+  function aging(selectedItem: Item) {
     ("");
     setSucess(false);
     setFailed(false);
     setMax(false);
     setBack(false);
 
+    if (sheltonsOnAge.length !== COMBINATIONS[selectedItem.age].length) {
+      return;
+    }
+
+    setInventory &&
+      setInventory((previous: any) => {
+        return previous.filter((item: any) => {
+          return !sheltonsOnAge.includes(item);
+        });
+      });
+    setSheltonsOnAge && setSheltonsOnAge([]);
+
     const prob = Math.round(Math.random() * 100);
-    if (item.age == 20) {
+    function updateInventory() {
+      setInventory &&
+        setInventory((inventory: any) => {
+          const idsArray = inventory.map((item: any) => {
+            return item.id;
+          });
+          const itemToChange = inventory.find((item: any) => {
+            return item?.id === selectedItem?.id;
+          });
+
+          console.log(idsArray.indexOf(itemToChange?.id));
+          console.log(inventory);
+
+          return inventory.toSpliced(idsArray.indexOf(itemToChange?.id), 1, {
+            ...selectedItem,
+            age: selectedItem.age ? selectedItem.age + 1 : 1,
+          });
+        });
+    }
+    if (selectedItem.age == 20) {
       setMax(true);
 
       return;
     }
-    if (item.age > 10) {
+    if (selectedItem.age > 10) {
       if (prob > 50) {
-        setItem({ ...item, age: item?.age ? item.age + 1 : 1 });
+        setSelectedItem &&
+          setSelectedItem({
+            ...selectedItem,
+            age: selectedItem?.age ? selectedItem.age + 1 : 1,
+          });
+        updateInventory();
         setSucess(true);
 
         return;
       }
     }
-    if (item.age > 5) {
+    if (selectedItem.age > 5) {
       if (prob > 10) {
-        setItem({ ...item, age: item?.age ? item.age + 1 : 1 });
+        setSelectedItem &&
+          setSelectedItem({
+            ...selectedItem,
+            age: selectedItem?.age ? selectedItem.age + 1 : 1,
+          });
+        updateInventory();
         setSucess(true);
-
+        console.log(selectedItem);
         return;
       }
     }
-    if (item.age <= 5) {
+
+    if (selectedItem.age <= 5) {
       if (prob > 0) {
-        setItem({ ...item, age: item?.age ? item.age + 1 : 1 });
+        setSelectedItem &&
+          setSelectedItem({
+            ...selectedItem,
+            age: selectedItem?.age ? selectedItem.age + 1 : 1,
+          });
+        updateInventory();
         setSucess(true);
 
         return;
       }
     }
-    if (!item.age) {
-      setItem({ ...item, age: 1 });
+    if (!selectedItem.age) {
+      setSelectedItem && setSelectedItem({ ...selectedItem, age: 1 });
       setSucess(true);
+      updateInventory();
       return;
     }
+
     setFailed(true);
   }
-  useEffect(() => {
-    console.log(item);
-  }, [item]);
+  useEffect(() => {}, [selectedItem]);
 
-  function removeAge(item: Item) {
+  function removeAge(selectedItem: Item) {
     setBack(false);
     setSucess(false);
     setFailed(false);
     setMax(false);
     const probReturn = Math.round(Math.random() * 100);
-    if (item.age > 1) {
+    if (selectedItem.age > 1) {
       if (probReturn > 10) {
-        setItem({ ...item, age: item?.age ? item.age - 1 : 1 });
+        setSelectedItem &&
+          setSelectedItem({
+            ...selectedItem,
+            age: selectedItem?.age ? selectedItem.age - 1 : 1,
+          });
         setBack(true);
       }
       if (probReturn > 50) {
-        setItem({ ...item, age: item?.age ? item.age - 2 : 1 });
+        setSelectedItem &&
+          setSelectedItem({
+            ...selectedItem,
+            age: selectedItem?.age ? selectedItem.age - 2 : 1,
+          });
         setBack(true);
       }
     }
   }
+  useEffect(() => {}, [itemDrag]);
 
   return (
     <>
       <div className={style.specItems}>
-        {/* <h1>Clique em um item para ver seus Status</h1> */}
-        <span>{item?.nome}</span>
+        {/* <h1>Clique em um selectedItem para ver seus Status</h1> */}
+        <span>{selectedItem?.nome}</span>
 
-        {item?.poderDeAtaque && (
-          <span>Poder de Ataque: {item?.poderDeAtaque}</span>
+        {selectedItem?.poderDeAtaque && (
+          <span>Poder de Ataque: {selectedItem?.poderDeAtaque}</span>
         )}
 
-        {item?.velDaArma && <span>Velocidade da arma: {item?.velDaArma}</span>}
-
-        {item?.Alcance && <span>Alcance: {item?.Alcance}</span>}
-
-        {item?.Crítico && <span>Crítico: {item?.Crítico}</span>}
-
-        {item?.taxaDeAtaque && (
-          <span>Taxa de ataque: {item?.taxaDeAtaque}</span>
+        {selectedItem?.velDaArma && (
+          <span>Velocidade da arma: {selectedItem?.velDaArma}</span>
         )}
 
-        {item?.Bônus && <span>Bônus: {item?.Bônus} </span>}
+        {selectedItem?.Alcance && <span>Alcance: {selectedItem?.Alcance}</span>}
 
-        {item?.hpAdicional && <span> HP adicional: {item?.hpAdicional}</span>}
+        {selectedItem?.Crítico && <span>Crítico: {selectedItem?.Crítico}</span>}
 
-        {item?.nivelNecessario && (
-          <span>Nível necessário: {item?.nivelNecessario}</span>
+        {selectedItem?.taxaDeAtaque && (
+          <span>Taxa de ataque: {selectedItem?.taxaDeAtaque}</span>
         )}
 
-        {item?.forcaNecessaria && (
-          <span>Força necessária: {item?.forcaNecessaria}</span>
+        {selectedItem?.Bônus && <span>Bônus: {selectedItem?.Bônus} </span>}
+
+        {selectedItem?.hpAdicional && (
+          <span> HP adicional: {selectedItem?.hpAdicional}</span>
         )}
 
-        {item?.talendoNecessario && (
-          <span>Talento necessária: {item?.talendoNecessario}</span>
+        {selectedItem?.nivelNecessario && (
+          <span>Nível necessário: {selectedItem?.nivelNecessario}</span>
         )}
 
-        {item?.agilidadeNecessaria && (
-          <span>Agilidade necessária: {item?.agilidadeNecessaria}</span>
+        {selectedItem?.forcaNecessaria && (
+          <span>Força necessária: {selectedItem?.forcaNecessaria}</span>
         )}
 
-        {item?.pDeAtqAdicional && (
-          <span>Poder de ataque adicional: {item?.pDeAtqAdicional}</span>
+        {selectedItem?.talendoNecessario && (
+          <span>Talento necessária: {selectedItem?.talendoNecessario}</span>
         )}
 
-        {item?.TaxaDeAtqAd && (
-          <span>Taxa de ataque adicional: {item?.TaxaDeAtqAd}</span>
+        {selectedItem?.agilidadeNecessaria && (
+          <span>Agilidade necessária: {selectedItem?.agilidadeNecessaria}</span>
         )}
 
-        {item?.criticoAdicional && (
-          <span>Crítico adicional: {item?.criticoAdicional}</span>
+        {selectedItem?.pDeAtqAdicional && (
+          <span>
+            Poder de ataque adicional: {selectedItem?.pDeAtqAdicional}
+          </span>
         )}
 
-        {item?.specAtqSpd && (
-          <span>Spec velocidade de ataque: {item?.specAtqSpd} </span>
+        {selectedItem?.TaxaDeAtqAd && (
+          <span>Taxa de ataque adicional: {selectedItem?.TaxaDeAtqAd}</span>
         )}
 
-        {item?.specRng && (
-          <span>Spec velocidade de ataque: {item?.specRng} </span>
+        {selectedItem?.criticoAdicional && (
+          <span>Crítico adicional: {selectedItem?.criticoAdicional}</span>
         )}
 
-        {item?.age && <span>Aging: +{item?.age}</span>}
-        {item && (
-          <div className={style.itemContainer}>
-            <img
-              className={style.itemImg}
-              style={{
-                filter: COLORS[item?.age],
-              }}
-              src={item && require(`../../assets/items/${item?.nome}_.png`)}
-              alt=""
-            />
-            <img
-              style={{}}
-              src={item && require(`../../assets/items/${item?.nome}_.png`)}
-              alt=""
-            />
-          </div>
+        {selectedItem?.specAtqSpd && (
+          <span>Spec velocidade de ataque: {selectedItem?.specAtqSpd} </span>
         )}
 
-        {item && (
-          <button onClick={() => removeAge(item)}>Retroceder aging</button>
+        {selectedItem?.specRng && (
+          <span>Spec velocidade de ataque: {selectedItem?.specRng} </span>
         )}
-        {item && <button onClick={() => aging(item)}>Aging</button>}
+
+        {selectedItem?.age && <span>Aging: +{selectedItem?.age}</span>}
+
+        {selectedItem && (
+          <button onClick={() => removeAge(selectedItem)}>
+            Retroceder aging
+          </button>
+        )}
+        {selectedItem && (
+          <button onClick={() => aging(selectedItem)}>Aging</button>
+        )}
 
         <span>
           {failed && "O Aging falhou!"}
@@ -191,6 +305,69 @@ export function Age({ item, setItem }: any) {
           {max && "Limite de Aging atingido."}
           {back && "Você retrocedeu o Aging"}
         </span>
+      </div>
+      <div>
+        {selectedItem &&
+          COMBINATIONS[selectedItem?.age || 0].map((shelton) => {
+            return <Shelton shelton={shelton} />;
+          })}
+      </div>
+      <div className={style.itemContainer}>
+        <div
+          onClick={() => {
+            if (setSelectedItem && setItemDrag) {
+              if (!itemDrag || itemDrag == null) {
+                setDragItemOnAge(true);
+                setItemDrag(selectedItem);
+                setSelectedItem({});
+                return;
+              }
+              if (itemDrag && selectedItem) {
+                const storeItemDrag = itemDrag;
+                const storeSelectedItem = selectedItem;
+                setSelectedItem(storeItemDrag);
+                setItemDrag(storeSelectedItem);
+
+                return;
+              }
+              if (itemDrag) {
+                setDragItemOnAge(!dragItemOnAge);
+                setSelectedItem(itemDrag);
+                setItemDrag({});
+                return;
+              }
+            }
+          }}
+          style={{
+            width: "200px",
+            height: "200px",
+            position: "absolute",
+            zIndex: 2,
+          }}
+        ></div>
+        {selectedItem && dragItemOnAge && (
+          <>
+            <img
+              className={style.itemImg}
+              style={{
+                filter: COLORS[selectedItem?.age],
+              }}
+              src={
+                selectedItem?.nome &&
+                require(`../../assets/items/${selectedItem?.nome}_.png`)
+              }
+              alt=""
+            />
+            <img
+              style={{}}
+              src={
+                selectedItem?.nome &&
+                require(`../../assets/items/${selectedItem?.nome}_.png`)
+              }
+              alt=""
+            />
+          </>
+        )}
       </div>
     </>
   );

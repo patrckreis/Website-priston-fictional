@@ -7,9 +7,11 @@ import React from "react";
 import { Inventory } from "../../components/inventory/inventory";
 
 interface iContext {
-  item: any;
+  selectedItem: any;
   inventory: any;
-  setItem: React.Dispatch<React.SetStateAction<undefined | any>> | undefined;
+  setSelectedItem:
+    | React.Dispatch<React.SetStateAction<undefined | any>>
+    | undefined;
   setInventory:
     | React.Dispatch<React.SetStateAction<undefined | any>>
     | undefined;
@@ -23,12 +25,17 @@ interface iContext {
   setItemDrag:
     | React.Dispatch<React.SetStateAction<undefined | any>>
     | undefined;
+
+  sheltonsOnAge: any;
+  setSheltonsOnAge:
+    | React.Dispatch<React.SetStateAction<undefined | any>>
+    | undefined;
 }
 
 export const context = React.createContext<iContext>({
-  item: {},
+  selectedItem: {},
   inventory: [],
-  setItem: (a) => {
+  setSelectedItem: (a) => {
     return a;
   },
   setInventory: (b) => {
@@ -43,21 +50,26 @@ export const context = React.createContext<iContext>({
   setItemDrag: (d) => {
     return d;
   },
+
+  sheltonsOnAge: [],
+  setSheltonsOnAge: (e) => {
+    return e;
+  },
 });
 
 export function Guide() {
   function handlePosition(e: React.MouseEvent<HTMLElement, MouseEvent>) {
     if (itemDrag) {
       setItemPosition && setItemPosition({ x: e.clientX, y: e.clientY });
-      console.log("teste");
     }
   }
   const [itemDrag, setItemDrag] = useState(null);
   const [itemPosition, setItemPosition] = useState({ x: 600, y: 600 });
-  const [item, setItem] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [inventory, setInventory] = useState(
     JSON.parse(localStorage.getItem("inventory") || "")
   );
+  const [sheltonsOnAge, setSheltonsOnAge] = useState([]);
 
   useEffect(() => {
     const localStorageInventory = localStorage.getItem("inventory");
@@ -69,14 +81,16 @@ export function Guide() {
   return (
     <context.Provider
       value={{
-        item,
+        selectedItem,
         inventory,
-        setItem,
+        setSelectedItem,
         setInventory,
         itemPosition,
         setItemPosition,
         itemDrag,
         setItemDrag,
+        setSheltonsOnAge,
+        sheltonsOnAge,
       }}
     >
       <>
