@@ -56,7 +56,10 @@ export function ListItems({}: any) {
                       const id = inventory[inventory.length - 1]?.id + 1 || 1;
                       console.log(id);
                       setInventory &&
-                        setInventory([...inventory, { ...listItem, id: id }]);
+                        setInventory([
+                          ...inventory,
+                          { ...listItem, id: id, age: 0 },
+                        ]);
                     }}
                   >
                     <img

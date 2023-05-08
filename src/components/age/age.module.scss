@@ -8,13 +8,103 @@
 }
 
 .itemContainer {
-  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  width: 200px;
-  height: 200px;
+  padding: 41px 30px 30px;
+  width: 141px;
+  height: 184px;
+  position: relative;
+}
+
+.aging {
+  position: relative;
+  width: 403px;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 30px 39px 49px 19px;
+  height: 263px;
+  justify-content: space-between;
+}
+
+.sheltonsContainer {
+  width: 142px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 42px 14px 30px;
+  height: 185px;
+  column-gap: 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  display: grid;
+}
+
+.agingBtn {
+  border: 0;
+  outline: 0;
+  width: 28px;
+  padding: 0;
+  height: 28px;
+  align-self: center;
+  margin-top: 7px;
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 100ms;
+
+  &:hover {
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 18px;
+      width: 4px;
+      background-color: orange;
+      box-shadow: 0px 0px 10px 1px orange;
+    }
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg);
+      height: 18px;
+      width: 4px;
+      background-color: orange;
+      box-shadow: 0px 0px 10px 1px orange;
+    }
+  }
+  &:active {
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 18px;
+      width: 4px;
+      background-color: orange;
+      box-shadow: 0px 0px 10px 3px orange;
+    }
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg);
+      height: 18px;
+      width: 4px;
+      background-color: orange;
+      box-shadow: 0px 0px 10px 3px orange;
+    }
+  }
 }
 
 @keyframes aging {

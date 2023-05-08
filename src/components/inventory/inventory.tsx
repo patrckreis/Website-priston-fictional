@@ -3,8 +3,14 @@ import { context } from "../../pages/guias/guias";
 import { Item } from "./item/item";
 
 export function Inventory() {
-  const { selectedItem, setSelectedItem, inventory, setInventory } =
-    useContext(context);
+  const {
+    selectedItem,
+    setSelectedItem,
+    inventory,
+    setInventory,
+    setItemDrag,
+    itemDrag,
+  } = useContext(context);
   useEffect(() => {
     const localStorageInventory = localStorage.getItem("inventory");
 
@@ -21,6 +27,20 @@ export function Inventory() {
       {inventory?.map((item: any, index: number) => {
         return <Item item={item} key={item.id} />;
       })}
+      <button
+        style={{ position: "absolute", zIndex: 2, top: 0 }}
+        onClick={() => {
+          setItemDrag && setItemDrag({});
+          setInventory &&
+            setInventory(
+              inventory.filter((itemInventory: any) => {
+                return itemInventory != itemDrag;
+              })
+            );
+        }}
+      >
+        x
+      </button>
     </div>
   );
 }

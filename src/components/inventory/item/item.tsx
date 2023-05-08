@@ -49,19 +49,6 @@ export function Item({ item }: any) {
         src={item && require(`../../../assets/items/${item?.nome}_.png`)}
         alt=""
       />
-      {/* <button
-        onClick={() => {
-          setItemDrag && setItemDrag({});
-          setInventory &&
-            setInventory(
-              inventory.filter((itemInventory: any) => {
-                return itemInventory != item;
-              })
-            );
-        }}
-      >
-        x
-      </button> */}
     </div>
   );
 }

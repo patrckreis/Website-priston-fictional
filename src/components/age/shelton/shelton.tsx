@@ -1,7 +1,8 @@
 import { context } from "../../../pages/guias/guias";
 import { useContext, useEffect, useState } from "react";
+import style from "./shelton.module.scss";
 
-export function Shelton({ shelton }: any) {
+export function Shelton({ shelton, timeout, sheltonBroken }: any) {
   const {
     itemDrag,
     setItemDrag,
@@ -10,31 +11,34 @@ export function Shelton({ shelton }: any) {
     selectedItem,
   } = useContext(context);
   const [activeShelton, setActiveShelton] = useState<any>({});
+  const [broke, setBroke] = useState(false);
+
+  useEffect(() => {
+    if (sheltonBroken) {
+      setTimeout(() => {
+        setBroke(true);
+      }, timeout);
+    } else setBroke(false);
+  }, [sheltonBroken]);
 
   useEffect(() => {
     setActiveShelton({});
   }, [selectedItem]);
-
+  if (broke) {
+    return <div className={style.shelton}></div>;
+  }
   return (
-    <div style={{ position: "relative" }}>
-      {activeShelton.nome ? (
-        ""
-      ) : (
-        <img
-          style={{
-            top: 0,
-            position: "absolute",
-            opacity: 0.9,
-            filter:
-              "brightness(0) saturate(100%) invert(53%) sepia(2%) saturate(6%) hue-rotate(346deg) brightness(94%) contrast(77%)",
-          }}
-          src={require(`../../../assets/items/${shelton}_.png`)}
-          alt=""
-        />
-      )}
-      <img src={require(`../../../assets/items/${shelton}_.png`)} alt="" />
+    <div className={style.shelton}>
+      <img
+        style={{ filter: `grayscale(${activeShelton.nome ? 0 : 1})` }}
+        src={require(`../../../assets/items/${shelton}_.png`)}
+        alt=""
+      />
       <div
         onClick={() => {
+          if (activeShelton.nome && itemDrag.nome) {
+            return;
+          }
           if (itemDrag.nome === shelton) {
             setSheltonsOnAge &&
               setSheltonsOnAge((previous: any) => {
@@ -59,8 +63,8 @@ export function Shelton({ shelton }: any) {
           }
         }}
         style={{
-          width: "22px",
-          height: "22px",
+          width: "27px",
+          height: "27px",
           position: "absolute",
           zIndex: 2,
           top: 0,

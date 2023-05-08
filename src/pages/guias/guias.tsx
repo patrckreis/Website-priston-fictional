@@ -67,7 +67,7 @@ export function Guide() {
   const [itemPosition, setItemPosition] = useState({ x: 600, y: 600 });
   const [selectedItem, setSelectedItem] = useState();
   const [inventory, setInventory] = useState(
-    JSON.parse(localStorage.getItem("inventory") || "")
+    JSON.parse(localStorage.getItem("inventory") || "[]")
   );
   const [sheltonsOnAge, setSheltonsOnAge] = useState([]);
 
