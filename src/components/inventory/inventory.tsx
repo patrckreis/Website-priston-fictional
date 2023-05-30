@@ -27,20 +27,28 @@ export function Inventory() {
       {inventory?.map((item: any, index: number) => {
         return <Item item={item} key={item.id} />;
       })}
-      <button
-        style={{ position: "absolute", zIndex: 2, top: 0 }}
-        onClick={() => {
-          setItemDrag && setItemDrag({});
-          setInventory &&
-            setInventory(
-              inventory.filter((itemInventory: any) => {
-                return itemInventory != itemDrag;
-              })
-            );
-        }}
-      >
-        x
-      </button>
+      {inventory.length && (
+        <button
+          style={{
+            position: "absolute",
+            zIndex: 2,
+            top: "560px",
+            left: "200px",
+            padding: "45px",
+          }}
+          onClick={() => {
+            setItemDrag && setItemDrag({});
+            setInventory &&
+              setInventory(
+                inventory.filter((itemInventory: any) => {
+                  return itemInventory != itemDrag;
+                })
+              );
+          }}
+        >
+          Deletar item
+        </button>
+      )}
     </div>
   );
 }

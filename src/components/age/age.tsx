@@ -26,6 +26,7 @@ export function Age() {
   const [failed, setFailed] = useState(false);
   const [max, setMax] = useState(false);
   const [back, setBack] = useState(false);
+  const [isAging, setIsAging] = useState(false);
 
   function aging(selectedItem: Item) {
     setTriggerSheltonBroken(false);
@@ -38,10 +39,28 @@ export function Age() {
       return;
     }
 
+    function handleAge() {
+      setTimeout(() => {
+        setIsAging(false);
+        setSelectedItem?.({
+          ...selectedItem,
+          age: selectedItem?.age ? selectedItem.age + 1 : 1,
+        });
+        setTriggerSheltonBroken(false);
+      }, (COMBINATIONS[selectedItem.age].length + 1) * 200);
+
+      updateInventory();
+      setSucess(true);
+    }
+    setIsAging(true);
     setInventory &&
       setInventory((previous: any) => {
         return previous.filter((item: any) => {
-          return !sheltonsOnAge.includes(item);
+          console.log(item.id);
+          return !sheltonsOnAge.find((sheltonOnAge: any) => {
+            console.log(sheltonOnAge.id);
+            return sheltonOnAge.id === item.id;
+          });
         });
       });
     setSheltonsOnAge && setSheltonsOnAge([]);
@@ -57,8 +76,7 @@ export function Age() {
             return item?.id === selectedItem?.id;
           });
 
-          console.log(idsArray.indexOf(itemToChange?.id));
-          console.log(inventory);
+          console.log(inventory, "inventory");
 
           return inventory.toSpliced(idsArray.indexOf(itemToChange?.id), 1, {
             ...selectedItem,
@@ -66,34 +84,22 @@ export function Age() {
           });
         });
     }
-    if (selectedItem.age == 20) {
+    if (selectedItem.age === 20) {
       setMax(true);
 
       return;
     }
     if (selectedItem.age > 10) {
+      setTriggerSheltonBroken(true);
       if (prob > 50) {
-        setSelectedItem &&
-          setSelectedItem({
-            ...selectedItem,
-            age: selectedItem?.age ? selectedItem.age + 1 : 1,
-          });
-        updateInventory();
-        setSucess(true);
-
+        handleAge();
         return;
       }
     }
     if (selectedItem.age > 5) {
+      setTriggerSheltonBroken(true);
       if (prob > 10) {
-        setSelectedItem &&
-          setSelectedItem({
-            ...selectedItem,
-            age: selectedItem?.age ? selectedItem.age + 1 : 1,
-          });
-        updateInventory();
-        setSucess(true);
-        console.log(selectedItem);
+        handleAge();
         return;
       }
     }
@@ -101,16 +107,7 @@ export function Age() {
     if (selectedItem.age <= 5) {
       setTriggerSheltonBroken(true);
       if (prob > 0) {
-        setTimeout(() => {
-          setSelectedItem?.({
-            ...selectedItem,
-            age: selectedItem?.age ? selectedItem.age + 1 : 1,
-          });
-          setTriggerSheltonBroken(false);
-        }, (COMBINATIONS[selectedItem.age].length + 1) * 200);
-
-        updateInventory();
-        setSucess(true);
+        handleAge();
         return;
       }
     }
@@ -150,7 +147,9 @@ export function Age() {
       }
     }
   }
-  useEffect(() => {}, [itemDrag]);
+  useEffect(() => {
+    console.log(itemDrag, "itemDrag");
+  }, [itemDrag]);
 
   return (
     <div>
@@ -164,8 +163,14 @@ export function Age() {
         <div className={style.itemContainer}>
           <div
             onClick={() => {
+              if (itemDrag.age > 19) {
+                return;
+              }
               if (setSelectedItem && setItemDrag) {
-                if (!itemDrag || itemDrag == null) {
+                if (sheltonsOnAge.length > 0) {
+                  return;
+                }
+                if (!itemDrag || JSON.stringify(itemDrag) === "{}") {
                   setDragItemOnAge(true);
                   setItemDrag(selectedItem);
                   setSelectedItem({});
@@ -220,15 +225,17 @@ export function Age() {
         </div>
         {selectedItem && (
           <button
+            disabled={isAging}
             className={style.agingBtn}
             onClick={() => aging(selectedItem)}
           ></button>
         )}
         <div className={style.sheltonsContainer}>
-          {selectedItem &&
+          {selectedItem?.nome &&
             COMBINATIONS[selectedItem?.age || 0].map((shelton, index) => {
               return (
                 <Shelton
+                  index={index}
                   sheltonBroken={triggerSheltonBroken}
                   timeout={200 * (index + 1)}
                   shelton={shelton}

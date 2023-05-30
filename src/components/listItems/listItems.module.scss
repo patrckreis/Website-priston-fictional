@@ -2,22 +2,27 @@
   display: flex;
   position: relative;
   box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  padding: 0 200px;
-  gap: 10px;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 200px;
+  height: calc(100vh - 80px);
+  overflow: auto;
 }
 
 .groupItem {
   display: flex;
-  /* background-color: #1f75ff; */
   padding: 3px 10px;
   color: #1f75ff;
   border-radius: 2px;
   border: 1px solid #1f75ff;
+  border-top: 0;
+  width: 100%;
   & span {
     cursor: pointer;
+  }
+  &:first-child {
+    border-top: 1px solid #1f75ff;
   }
 }
 
@@ -31,7 +36,7 @@
   column-gap: 50px;
   flex-wrap: wrap;
   gap: 5px;
-  width: 700px;
+  width: 100%;
 }
 
 .listItemsContainer {

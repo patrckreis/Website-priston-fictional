@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Inventory } from "../../components/inventory/inventory";
+import { Age } from "../../components/age/age";
 
 interface iContext {
   selectedItem: any;
@@ -63,7 +64,7 @@ export function Guide() {
       setItemPosition && setItemPosition({ x: e.clientX, y: e.clientY });
     }
   }
-  const [itemDrag, setItemDrag] = useState(null);
+  const [itemDrag, setItemDrag] = useState({});
   const [itemPosition, setItemPosition] = useState({ x: 600, y: 600 });
   const [selectedItem, setSelectedItem] = useState();
   const [inventory, setInventory] = useState(
@@ -100,13 +101,8 @@ export function Guide() {
             handlePosition(e);
           }}
         >
-          <Link to="listItems">
-            <button className={style.btnMenu}>Lista de items</button>
-          </Link>
-          <Link to="aging">
-            <button className={style.btnMenu}>Aging</button>
-          </Link>
           <ListItems />
+          <Age />
           <Inventory />
         </div>
       </>
